@@ -1,17 +1,23 @@
-var SimpleStorage = artifacts.require("./SimpleStorage.sol");
+var SampleCrowdsale = artifacts.require("./SampleCrowdsale.sol");
 
-contract('SimpleStorage', function(accounts) {
+contract('SampleCrowdsale', function(accounts) {
 
-  it("...should store the value 89.", function() {
-    return SimpleStorage.deployed().then(function(instance) {
-      simpleStorageInstance = instance;
+  // it("should", function() {
+  //   SampleCrowdsale.deployed().then(function(instance) {
+  //     instance.token().then(addr => {
+  //       console.log(addr)
+  //     })
+  //   })
+  // })
 
-      return simpleStorageInstance.set(89, {from: accounts[0]});
-    }).then(function() {
-      return simpleStorageInstance.get.call();
-    }).then(function(storedData) {
-      assert.equal(storedData, 89, "The value 89 was not stored.");
-    });
-  });
+  it("should", async () => {
+    SampleCrowdsale.deployed().then(function(instance) {
 
-});
+      let res = await instance.token()
+      console.log(res)
+
+    })
+  })
+
+
+})
