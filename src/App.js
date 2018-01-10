@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import contract from 'truffle-contract'
 import SimpleStorageContract from '../build/contracts/SampleCrowdsale.json'
-import GustavoCoin from '../build/contracts/GustavoCoin.json'
+import SampleCrowdsaleToken from '../build/contracts/SampleCrowdsaleToken.json'
 import getWeb3 from './utils/getWeb3'
 
 class App extends Component {
@@ -27,7 +27,7 @@ class App extends Component {
     const simpleStorage = contract(SimpleStorageContract)
     simpleStorage.setProvider(web3.currentProvider)
 
-    const sampleCrowdsaleToken = contract(GustavoCoin)
+    const sampleCrowdsaleToken = contract(SampleCrowdsaleToken)
     sampleCrowdsaleToken.setProvider(web3.currentProvider)
 
     web3.eth.getAccounts((error, accounts) => {
@@ -37,9 +37,7 @@ class App extends Component {
 
         let tokenAddress = await instance.token()
         let sampleCrowdsaleTokenInstance = sampleCrowdsaleToken.at(tokenAddress)
-
         let balance = await sampleCrowdsaleTokenInstance.balanceOf(account1)
-
         let res = web3.fromWei(balance.toString(10), "ether")
 
         console.log("result ether by contract")
