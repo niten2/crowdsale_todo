@@ -8,7 +8,7 @@ import "./SampleCrowdsaleToken.sol";
 // contract SampleCrowdsale is Crowdsale, CappedCrowdsale, RefundableCrowdsale {
 contract SampleCrowdsale is Crowdsale {
 
-  function SampleCrowdsale(uint256 _startTime, uint256 _endTime, uint256 _rate, address _wallet)
+  function SampleCrowdsale(uint256 _startTime, uint256 _endTime, uint256 _rate, address _wallet) public
     Crowdsale(_startTime, _endTime, _rate, _wallet) {
   }
 
@@ -30,6 +30,13 @@ contract SampleCrowdsale is Crowdsale {
   function createTokenContract() internal returns (MintableToken) {
     return new SampleCrowdsaleToken();
   }
+
+
+  // function kill() public {
+  //   if (msg.sender == owner) {
+  //     selfdestruct(owner);
+  //   }
+  // }
 
 }
 
