@@ -4,7 +4,7 @@ import { getWeb3, getSampleCrowdsale, getSampleCrowdsaleToken } from 'src/utils/
 export default class Balance extends Component {
 
   state = {
-    balance: null,
+    address: null,
   }
 
   handle = async () => {
@@ -13,18 +13,16 @@ export default class Balance extends Component {
     let token = await getSampleCrowdsaleToken(web3)
     let account1 = web3.eth.accounts[1]
 
-    let instance = await token.at(await crowdsale.token())
-    let balance = (await instance.balanceOf(account1)).toString(10)
-
-    this.setState({ balance })
+    let address = await crowdsale.token()
+    this.setState({ address })
   }
 
   render() {
-    let { balance } = this.state
+    let { address } = this.state
 
     return (
       <div className="App">
-        <h1>Your balance account1 { balance || "not found" }</h1>
+        <h1>Your balance address token { address || "not found" }</h1>
         <button onClick={ this.handle }> refresh </button>
       </div>
     )

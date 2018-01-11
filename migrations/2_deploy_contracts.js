@@ -6,8 +6,11 @@ module.exports = function(deployer, network, accounts) {
 
   const rate = new web3.BigNumber(1000)
 
-  const goal = new web3.BigNumber(10000)
-  const cap = new web3.BigNumber(20000)
+  const goal = web3.toWei(10, "ether")
+  const cap = web3.toWei(10, "ether")
+
+  // const goal = new web3.BigNumber(10000)
+  // const cap = new web3.BigNumber(20000)
 
   const wallet = accounts[0]
 
