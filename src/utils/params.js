@@ -1,5 +1,4 @@
 import Web3 from 'web3'
-
 import contract from 'truffle-contract'
 import SampleCrowdsale from 'build/contracts/SampleCrowdsale.json'
 import SampleCrowdsaleToken from 'build/contracts/SampleCrowdsaleToken.json'
