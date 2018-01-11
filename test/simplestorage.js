@@ -1,28 +1,18 @@
-var SampleCrowdsale = artifacts.require("./SampleCrowdsale.sol");
+import { expect } from "chai"
+let SampleCrowdsale = artifacts.require("./SampleCrowdsale.sol")
 
 contract('SampleCrowdsale', (accounts) => {
 
   it("should", async () => {
     let instance = await SampleCrowdsale.deployed()
 
-    console.log(instance)
 
-      // .then((instance) => {
-      // instance.token().then(addr => {
-      //   console.log(addr)
-      //   console.log("----------------")
-      // })
-    // })
+    let addr = await instance.token()
+
+    expect(addr).to.be.a("string")
+
+    console.log(addr)
+
   })
-
-  // it("should", async () => {
-  //   SampleCrowdsale.deployed().then(function(instance) {
-
-  //     let res = await instance.token()
-  //     console.log(res)
-
-  //   })
-  // })
-
 
 })
