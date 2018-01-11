@@ -5,12 +5,7 @@ import "zeppelin-solidity/contracts/crowdsale/RefundableCrowdsale.sol";
 import "zeppelin-solidity/contracts/token/MintableToken.sol";
 import "./SampleCrowdsaleToken.sol";
 
-// contract SampleCrowdsale is Crowdsale {
 contract SampleCrowdsale is Crowdsale, CappedCrowdsale, RefundableCrowdsale {
-
-  // function SampleCrowdsale(uint256 _startTime, uint256 _endTime, uint256 _rate, address _wallet) public
-  //   Crowdsale(_startTime, _endTime, _rate, _wallet) {
-  // }
 
   function SampleCrowdsale(uint256 _startTime, uint256 _endTime, uint256 _rate, uint256 _goal, uint256 _cap, address _wallet) public
     CappedCrowdsale(_cap)
@@ -30,7 +25,6 @@ contract SampleCrowdsale is Crowdsale, CappedCrowdsale, RefundableCrowdsale {
   function createTokenContract() internal returns (MintableToken) {
     return new SampleCrowdsaleToken();
   }
-
 
   // function kill() public {
   //   if (msg.sender == owner) {
