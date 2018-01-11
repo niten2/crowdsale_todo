@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "node scripts/start.js",
+    "start": "NODE_PATH=./ node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
-    "truffle:test": "./node_modules/zeppelin-solidity/scripts/test.sh",
-    "truffle:compile": "./node_modules/.bin/truffle compile",
-    "truffle:develop": "./node_modules/.bin/truffle develop",
-    "truffle:migrate": "./node_modules/.bin/truffle migrate"
+    "t:test": "./node_modules/zeppelin-solidity/scripts/test.sh",
+    "t:develop": "./node_modules/.bin/truffle develop",
+    "t:compile": "./node_modules/.bin/truffle compile",
+    "t:migrate": "./node_modules/.bin/truffle migrate"
   },
   "dependencies": {
     "dotenv": "^2.0.0",
