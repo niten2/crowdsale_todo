@@ -5,24 +5,29 @@ export default class Balance extends Component {
 
   state = {
     address: null,
+    token: null,
+  }
+
+  async componentWillMount() {
+    await this.handle()
   }
 
   handle = async () => {
     let web3 = getWeb3()
     let crowdsale = await getSampleCrowdsale(web3)
-    let token = await getSampleCrowdsaleToken(web3)
-    let account1 = web3.eth.accounts[1]
 
-    let address = await crowdsale.token()
-    this.setState({ address })
+    let address = await crowdsale.address
+    let token = await crowdsale.token()
+    this.setState({ address, token })
   }
 
   render() {
-    let { address } = this.state
+    let { address, token } = this.state
 
     return (
       <div className="App">
-        <h1>Your balance address token { address || "not found" }</h1>
+        <h4>Address contract = { address || "not found" }</h4>
+        <h4>Address token = { token || "not found" }</h4>
         <button onClick={ this.handle }> refresh </button>
       </div>
     )
