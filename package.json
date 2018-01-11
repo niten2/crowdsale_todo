@@ -5,12 +5,17 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node scripts/test.js --env=jsdom",
+    "truffle:test": "./node_modules/.bin/truffle test",
+    "truffle:compile": "./node_modules/.bin/truffle compile",
+    "truffle:develop": "./node_modules/.bin/truffle develop",
+    "truffle:migrate": "./node_modules/.bin/truffle migrate"
   },
   "dependencies": {
     "dotenv": "^2.0.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "truffle": "^4.0.4",
     "zeppelin-solidity": "^1.5.0"
   },
   "devDependencies": {
@@ -19,6 +24,7 @@
     "babel-eslint": "7.1.1",
     "babel-jest": "17.0.2",
     "babel-loader": "6.2.7",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react-app": "^2.0.1",
     "babel-preset-stage-2": "^6.24.1",

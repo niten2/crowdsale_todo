@@ -31,6 +31,13 @@ contract SampleCrowdsale is Crowdsale {
     return new SampleCrowdsaleToken();
   }
 
+
+  // function kill() public {
+  //   if (msg.sender == owner) {
+  //     selfdestruct(owner);
+  //   }
+  // }
+
 }
 
 // contract GustavoCoin is MintableToken {

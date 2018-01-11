@@ -1,23 +1,28 @@
 var SampleCrowdsale = artifacts.require("./SampleCrowdsale.sol");
 
-contract('SampleCrowdsale', function(accounts) {
-
-  // it("should", function() {
-  //   SampleCrowdsale.deployed().then(function(instance) {
-  //     instance.token().then(addr => {
-  //       console.log(addr)
-  //     })
-  //   })
-  // })
+contract('SampleCrowdsale', (accounts) => {
 
   it("should", async () => {
-    SampleCrowdsale.deployed().then(function(instance) {
+    let instance = await SampleCrowdsale.deployed()
 
-      let res = await instance.token()
-      console.log(res)
+    console.log(instance)
 
-    })
+      // .then((instance) => {
+      // instance.token().then(addr => {
+      //   console.log(addr)
+      //   console.log("----------------")
+      // })
+    // })
   })
+
+  // it("should", async () => {
+  //   SampleCrowdsale.deployed().then(function(instance) {
+
+  //     let res = await instance.token()
+  //     console.log(res)
+
+  //   })
+  // })
 
 
 })
