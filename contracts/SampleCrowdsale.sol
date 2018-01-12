@@ -7,10 +7,19 @@ import "./SampleCrowdsaleToken.sol";
 
 contract SampleCrowdsale is Crowdsale, CappedCrowdsale, RefundableCrowdsale {
 
-  function SampleCrowdsale(uint256 _startTime, uint256 _endTime, uint256 _rate, uint256 _goal, uint256 _cap, address _wallet) public
+  function SampleCrowdsale(
+    uint256 _startTime,
+    uint256 _endTime,
+    uint256 _rate,
+    uint256 _goal,
+    uint256 _cap,
+    address _wallet
+    // address _owner
+  ) public
     CappedCrowdsale(_cap)
     FinalizableCrowdsale()
     RefundableCrowdsale(_goal)
+    // Ownable(_owner)
     Crowdsale(_startTime, _endTime, _rate, _wallet)
   {
     // As goal needs to be met for a successful crowdsale

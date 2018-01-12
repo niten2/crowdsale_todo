@@ -13,7 +13,7 @@ export default class Balance extends Component {
   }
 
   handle = async () => {
-    this.setState({ balance: "processing..." })
+    this.setState({ balance: "processing...", accounts: [] })
 
     let web3 = getWeb3()
     let crowdsale = await getSampleCrowdsale(web3)
@@ -21,22 +21,25 @@ export default class Balance extends Component {
     let token = await getSampleCrowdsaleToken(web3)
     let instance = await token.at(await crowdsale.token())
 
-    let accountsList = await web3.eth.accounts
+    let addressList = await web3.eth.accounts
+
     let accounts = []
 
     await Promise.all(
-      accountsList.map(async (account, index) => {
-        let balance = (await instance.balanceOf(account)).toString(10)
+      addressList.map(async (address, index) => {
+        let balance = web3.fromWei((await web3.eth.getBalance(address)).toString(10))
+        let tokens = web3.fromWei((await instance.balanceOf(address)).toString(10))
 
         accounts.push({
-          index: index,
+          index,
           balance,
-          address: account,
+          tokens,
+          address
         })
       })
     )
 
-    this.setState({ accounts: accounts })
+    this.setState({ accounts })
   }
 
   render() {
@@ -50,6 +53,7 @@ export default class Balance extends Component {
               <td> index </td>
               <td> address </td>
               <td> balance </td>
+              <td> tokens </td>
             </tr>
 
             { accounts.length === 0 ? <tr><td> processing... </td></tr> : null }
@@ -60,6 +64,7 @@ export default class Balance extends Component {
                   <td> { account.index } </td>
                   <td> { account.address } </td>
                   <td> { account.balance } </td>
+                  <td> { account.tokens } </td>
                 </tr>
               )
             }
