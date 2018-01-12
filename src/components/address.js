@@ -19,6 +19,7 @@ export default class Balance extends Component {
 
     let address = await crowdsale.address
     let token = await crowdsale.token()
+
     let owner = await crowdsale.owner()
     this.setState({ address, token, owner })
   }

@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import R from 'ramda'
 import { getWeb3, getSampleCrowdsale, getSampleCrowdsaleToken } from 'src/utils/params'
+
 
 export default class Balance extends Component {
 
@@ -38,6 +40,8 @@ export default class Balance extends Component {
         })
       })
     )
+
+    accounts = R.sortBy(R.prop("index"))(accounts)
 
     this.setState({ accounts })
   }

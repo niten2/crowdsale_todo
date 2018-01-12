@@ -1,3 +1,4 @@
+// let SampleCrowdsale = artifacts.require("./SampleCrowdsale.sol")
 // let SampleCrowdsaleToken = artifacts.require("./SampleCrowdsaleToken.sol")
 // // let SampleCrowdsaleToken = artifacts.require("SampleCrowdsaleToken.sol")
 
@@ -17,8 +18,10 @@
 //   // })
 
 //   it('transfer updates balance of counterparties', async function() {
+//     let crowdsale = await SampleCrowdsale.deployed()
+//     let coinInstance = SampleCrowdsaleToken.at(await crowdsale.token())
 
-//     token = await SampleCrowdsaleToken.deployed()
+//     // token = await SampleCrowdsaleToken.deployed()
 
 
 //     // await token.transfer(second_account, 100)

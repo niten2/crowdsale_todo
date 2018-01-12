@@ -24,6 +24,20 @@ export default class Actions extends Component {
     }
   }
 
+  close = async () => {
+    try {
+      let web3 = getWeb3()
+      let crowdsale = await getSampleCrowdsale(web3)
+
+      console.log(crowdsale)
+
+      await crowdsale.close()
+    } catch (err) {
+      console.log("owner???")
+      console.log(err)
+    }
+  }
+
   render() {
     let { action } = this.state
 
@@ -33,6 +47,7 @@ export default class Actions extends Component {
         <div> actions { action }</div>
 
         <button onClick={ this.handle }> add account1 token </button>
+        <button onClick={ this.close }> close contract </button>
       </div>
     )
   }

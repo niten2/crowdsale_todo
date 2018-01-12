@@ -1,6 +1,5 @@
 import chai, { expect } from "chai"
 import chaiAsPromised from "chai-as-promised"
-
 chai.use(chaiAsPromised)
 
 let SampleCrowdsale = artifacts.require("./SampleCrowdsale.sol")
@@ -23,21 +22,21 @@ contract('SampleCrowdsale', (accounts) => {
 
   })
 
-  it(`should sendTransaction token`, async () => {
-    let balance
-    let account1 = web3.eth.accounts[1]
+  // it(`should sendTransaction token`, async () => {
+  //   let balance
+  //   let account1 = web3.eth.accounts[1]
 
-    let crowdsale = await SampleCrowdsale.deployed()
+  //   let crowdsale = await SampleCrowdsale.deployed()
 
-    let coinInstance = SampleCrowdsaleToken.at(await crowdsale.token())
+  //   let coinInstance = SampleCrowdsaleToken.at(await crowdsale.token())
 
-    balance = (await coinInstance.balanceOf(account1)).toString(10)
-    expect(balance).to.eql("0")
+  //   balance = (await coinInstance.balanceOf(account1)).toString(10)
+  //   expect(balance).to.eql("0")
 
-    await crowdsale.sendTransaction({ from: account1, value: web3.toWei(10, "ether")})
+  //   await crowdsale.sendTransaction({ from: account1, value: web3.toWei(10, "ether")})
 
-    balance = (await coinInstance.balanceOf(account1)).toString(10)
-    expect(balance).to.eql("10000000000000000000000")
-  })
+  //   balance = (await coinInstance.balanceOf(account1)).toString(10)
+  //   expect(balance).to.eql("10000000000000000000000")
+  // })
 
 })
