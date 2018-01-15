@@ -6,6 +6,7 @@ export default class Balance extends Component {
   state = {
     address: null,
     token: null,
+    owner: null,
   }
 
   async componentWillMount() {
@@ -18,16 +19,19 @@ export default class Balance extends Component {
 
     let address = await crowdsale.address
     let token = await crowdsale.token()
-    this.setState({ address, token })
+
+    let owner = await crowdsale.owner()
+    this.setState({ address, token, owner })
   }
 
   render() {
-    let { address, token } = this.state
+    let { address, token, owner } = this.state
 
     return (
       <div className="App">
         <h4>Address contract = { address || "not found" }</h4>
         <h4>Address token = { token || "not found" }</h4>
+        <h4>Address owner = { owner || "not found" }</h4>
         <button onClick={ this.handle }> refresh </button>
       </div>
     )

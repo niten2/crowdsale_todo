@@ -26,3 +26,7 @@ export let getSampleCrowdsaleToken = async (web3) => {
 
   return sampleCrowdsaleToken
 }
+
+export const parseValue = async (web3, balance) =>  {
+  return await web3.fromWei(balance).toString(10)
+}
