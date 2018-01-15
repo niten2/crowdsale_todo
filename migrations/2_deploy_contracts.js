@@ -1,8 +1,11 @@
 var SampleCrowdsale = artifacts.require("./SampleCrowdsale.sol")
 
 module.exports = function(deployer, network, accounts) {
+
   const startTime = web3.eth.getBlock(web3.eth.blockNumber).timestamp + 1 // +1 second, future
+
   const endTime = startTime + (86400 * 7) // finished after 7 days
+  // const endTime = web3.eth.getBlock(web3.eth.blockNumber).timestamp + 3 // +1 second, future
 
   const rate = new web3.BigNumber(100)
 

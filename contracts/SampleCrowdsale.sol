@@ -25,13 +25,15 @@ contract SampleCrowdsale is Crowdsale, CappedCrowdsale, RefundableCrowdsale, Ref
       RefundableCrowdsale(_goal)
       RefundVault(_wallet)
       // Ownable(_owner)
-      Crowdsale(_startTime, _endTime, _rate, _wallet)
-    {
-      // As goal needs to be met for a successful crowdsale
-      // the value needs to less or equal than
-      // a cap which is limit for accepted funds
-      require(_goal <= _cap);
-    }
+      Crowdsale(_startTime, _endTime, _rate, _wallet) {
+
+        // As goal needs to be met for a successful crowdsale
+        // the value needs to less or equal than
+        // a cap which is limit for accepted funds
+        require(_goal <= _cap);
+      }
+
+
 
     // creates the token to be sold.
     // override this method to
@@ -58,11 +60,19 @@ contract SampleCrowdsale is Crowdsale, CappedCrowdsale, RefundableCrowdsale, Ref
       return new SampleCrowdsaleToken();
     }
 
+    /**
+    * @dev Finalizes the crowdsale
+    */
     function finalization() internal {
-      wallet.transfer(msg.value);
+        super.finalization();
+
+        // take onwership over CAToken contract
+        token.transferOwnership(owner);
     }
 
-    function kill() public {
+    // Owner methods
+
+    function kill() public onlyOwner {
       if (msg.sender == owner) {
         selfdestruct(owner);
       }

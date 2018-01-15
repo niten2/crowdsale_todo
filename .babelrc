@@ -4,5 +4,9 @@
     "stage-2",
     "stage-3",
     "react-app"
+  ],
+  "plugins": [
+    ["babel-polyfill"],
+    ["resolver", { "resolveDirs": ["./"] }]
   ]
 }

@@ -1,11 +1,11 @@
 import chai, { expect } from "chai"
 import chaiAsPromised from "chai-as-promised"
 import chaiBignumber from "chai-bignumber"
-import { duration, increaseTimeTo } from "./helpers/increaseTime"
-import { advanceBlock } from './helpers/advanceToBlock'
-import latestTime from "./helpers/latestTime"
-import ether from './helpers/ether'
-import EVMRevert from './helpers/EVMRevert'
+import latestTime from "test/helpers/latestTime"
+import ether from 'test/helpers/ether'
+import EVMRevert from 'test/helpers/EVMRevert'
+import { duration, increaseTimeTo } from "test/helpers/increaseTime"
+import { advanceBlock } from 'test/helpers/advanceToBlock'
 
 chai.use(chaiAsPromised)
 chai.use(chaiBignumber(web3.BigNumber))
@@ -27,10 +27,6 @@ contract('Crowdsale: ', function ([_, wallet, walletInvestorFirst, walletInvesto
   let tokens
   let usedTokensSupply = new BigNumber(0);
 
-  // let residueTokens = new BigNumber(0);
-  // let bonusCoefficient = new BigNumber(0);
-  // let catToUsedPrice = new BigNumber(0);
-
   before(async function () {
     // Advance to the next block to correctly read time in
     // the solidity "now" function interpreted by testrpc
@@ -50,44 +46,44 @@ contract('Crowdsale: ', function ([_, wallet, walletInvestorFirst, walletInvesto
     goal = ether(10)
     cap = ether(20)
 
-    // crowdsale = await Crowdsale.new(startTime, endTime, rate, goal, cap, wallet)
     crowdsale = await Crowdsale.deployed()
     tokens = Token.at(await crowdsale.token.call())
-    // bonusCoefficient = await crowdsale.BONUS_COEFF.call()
-    // catToUsedPrice = await crowdsale.TOKEN_USDCENT_PRICE.call()
-  })
-
-  it(`should have zero balance walletInvestorFirst`, async () => {
-    await validateBalance(walletInvestorFirst, new BigNumber(0))
   })
 
   it(`should buyTokens walletInvestorFirst`, async () => {
     await buyTokens(walletInvestorFirst, { from: walletInvestorFirst, value: ether(1) })
   })
 
-  it(`should have valid balance walletInvestorFirst`, async () => {
-    await validateBalance(walletInvestorFirst, new BigNumber(100000000000000000000))
+  it(`should not has ended`, async () => {
+    expect(await crowdsale.hasEnded()).to.be.false
   })
 
-  it(`should have valid balance walletInvestorFirst`, async () => {
-    await validateBalance(walletInvestorFirst, new BigNumber(100000000000000000000))
+  it(`should have state Active`, async () => {
+    expect(await getState()).to.eql("Active")
   })
 
-  it(`should have status Active`, async () => {
-    let res = await getStatus()
+  it(`should set end time crowdsale`, async () => {
+    await increaseTimeTo(afterWhitelistTime + duration.days(8))
 
-    expect(res).to.eql("Active")
+    let timestamp = web3.eth.getBlock(web3.eth.blockNumber).timestamp
+
+    expect(timestamp).to.eql(afterWhitelistTime + duration.days(8))
+  })
+
+  it(`should have hasEnded true`, async () => {
+    expect(await crowdsale.hasEnded()).to.be.true
+  })
+
+  it(`should have state Refunding`, async () => {
+    await crowdsale.enableRefunds()
+
+    expect(await getState()).to.eql("Refunding")
   })
 
 
 
 
-  // it(`should have valid totalSupply`, async () => {
 
-  //   let totalSupply = await web3.fromWei(await instance.totalSupply()).toString(10)
-
-  //   expect(totalSupply).to.eql(1000)
-  // })
 
 
   // NOTE helpers
@@ -126,7 +122,7 @@ contract('Crowdsale: ', function ([_, wallet, walletInvestorFirst, walletInvesto
     return await tokens.balanceOf(wallet)
   }
 
-  let getStatus = async () => {
+  let getState = async () => {
     let state = (await crowdsale.state()).toString(10)
 
     const status = {
